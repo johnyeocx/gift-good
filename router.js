@@ -1,5 +1,4 @@
 const express = require("express");
-// const { extractDetailsFromPage } = require("./webScraper.js");
 
 const router = express.Router();
 
@@ -14,12 +13,6 @@ async function extractDetailsFromPage(url) {
       args: [
         "--no-sandbox",
         "--disable-setuid-sandbox",
-        // "--no-zygote",
-        // "--no-default-browser-check",
-        // "--bwsi",
-        // "--disable-dev-shm-usage",
-        // "--disable-infobars",
-        // "--hide-scrollbars",
       ],
     });
     console.log("reached pupeteer launch");
@@ -27,8 +20,9 @@ async function extractDetailsFromPage(url) {
     const page = await browser.newPage();
 
     await page.goto(url, { waitUntil: "networkidle0" });
+    
     const result = await pageEvaluator.evaluateProductDetails(page, "amazon");
-    console.log(result);
+    
     await page.close();
     await browser.close();
     return result;
