@@ -9,9 +9,9 @@ const dotenv = require("dotenv");
 const PORT = process.env.PORT || 5000;
 const app = express();
 
-app.get("/", (req, res) => {
-  res.send("Hello to Gift Good API");
-});
+// app.get("/", (req, res) => {
+//   res.send("Hello to Gift Good API");
+// });
 dotenv.config();
 const server = http.createServer(app);
 const io = socketio(server, { cors: "*" });
