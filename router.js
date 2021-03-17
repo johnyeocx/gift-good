@@ -23,10 +23,6 @@ async function extractDetailsFromPage(url) {
   });
 
   const page = await browser.newPage();
-
-  //   await page.goto(exampleFlpktUrl, { waitUntil: "networkidle0" });
-  //   console.log("Flipkart Product Details");
-  //   console.log(await pageEvaluator.evaluateProductDetails(page, "flipkart"));
   try {
     await page.goto(url, { waitUntil: "networkidle0" });
     const result = await pageEvaluator.evaluateProductDetails(page, "amazon");
@@ -45,17 +41,19 @@ router.get("/", (req, res) => {
 });
 
 router.post("/generate", async (req, res) => {
-  const url = req.body.url;
-  console.log(url);
-  // if (urlData.url1) {
-  // try {
-
-  const data = await extractDetailsFromPage(url);
-  // const result = "unable to fetch from URL";
-  if (data === -1) {
-    res.status(400).json("no result found");
+  try {
+    console.log("testing scraping");
+    const url = req.body.url;
+    console.log(url);
+    const data = await extractDetailsFromPage(url);
+    // const result = "unable to fetch from URL";
+    if (data === -1) {
+      res.status(400).json("no result found");
+    }
+    res.status(200).json(data);
+  } catch (error) {
+    console.log("error has occured");
   }
-  res.status(200).json(data);
 });
 
 module.exports = router;
