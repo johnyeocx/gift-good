@@ -7,23 +7,24 @@ const puppeteer = require("puppeteer");
 const { pageEvaluator } = require("patang");
 
 async function extractDetailsFromPage(url) {
-  const browser = await puppeteer.launch({
-    headless: true,
-    defaultViewport: null,
-    args: [
-      "--no-sandbox",
-      "--disable-setuid-sandbox",
-      "--no-zygote",
-      "--no-default-browser-check",
-      "--bwsi",
-      "--disable-dev-shm-usage",
-      "--disable-infobars",
-      "--hide-scrollbars",
-    ],
-  });
-
-  const page = await browser.newPage();
   try {
+    const browser = await puppeteer.launch({
+      headless: true,
+      defaultViewport: null,
+      args: [
+        "--no-sandbox",
+        "--disable-setuid-sandbox",
+        "--no-zygote",
+        "--no-default-browser-check",
+        "--bwsi",
+        "--disable-dev-shm-usage",
+        "--disable-infobars",
+        "--hide-scrollbars",
+      ],
+    });
+
+    const page = await browser.newPage();
+
     await page.goto(url, { waitUntil: "networkidle0" });
     const result = await pageEvaluator.evaluateProductDetails(page, "amazon");
     console.log(result);
