@@ -1,5 +1,6 @@
 # Team Vision's Gift Good App Client Code for HFG '21
 Main components are under src/components
+
 Component structure:
 
 **1. Join Page**
