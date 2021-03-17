@@ -14,14 +14,15 @@ async function extractDetailsFromPage(url) {
       args: [
         "--no-sandbox",
         "--disable-setuid-sandbox",
-        "--no-zygote",
-        "--no-default-browser-check",
-        "--bwsi",
-        "--disable-dev-shm-usage",
-        "--disable-infobars",
-        "--hide-scrollbars",
+        // "--no-zygote",
+        // "--no-default-browser-check",
+        // "--bwsi",
+        // "--disable-dev-shm-usage",
+        // "--disable-infobars",
+        // "--hide-scrollbars",
       ],
     });
+    console.log("reached pupeteer launch");
 
     const page = await browser.newPage();
 
@@ -47,7 +48,7 @@ router.post("/generate", async (req, res) => {
     const url = req.body.url;
     console.log(url);
     const data = await extractDetailsFromPage(url);
-    // const result = "unable to fetch from URL";
+
     if (data === -1) {
       res.status(400).json("no result found");
     }
